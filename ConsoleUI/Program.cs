@@ -39,6 +39,7 @@ namespace ConsoleUI
 
         public override void DriveVirtual()
         {
+            base.DriveVirtual();
             Console.WriteLine("This is Virtual override");
         }
     }
