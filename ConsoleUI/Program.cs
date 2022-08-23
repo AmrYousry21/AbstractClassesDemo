@@ -3,51 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ConsoleUI.Program;
 
 namespace ConsoleUI
 {
+    public abstract class Vehicle
+    {
+        public string Year = "2019";
+        public string Make = "Toyota";
+        public string Model = "Corolla";
+
+        public abstract void DriveAbstract();
+        public virtual void DriveVirtual()
+        {
+            Console.WriteLine("This is Virtual");
+        }
+    }
+
+    public class Car : Vehicle
+    {
+        public override void DriveAbstract()
+        {
+            bool hasTrunk = true;
+            Console.WriteLine($"Has trunk ? {hasTrunk}");
+        }
+    }
+
+    public class Motorcycle : Vehicle
+    {
+        public override void DriveAbstract()
+        {
+            bool sideCart = true;
+            Console.WriteLine($"Has trunk ? {sideCart}");
+        }
+
+        public override void DriveVirtual()
+        {
+            Console.WriteLine("This is Virtual override");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            /*
-             * Todo follow all comments!! 
-             */
 
-            #region Vehicles
+            List<Vehicle> vehicles = new List<Vehicle>();
 
-            /*
-             * Create an abstract class called Vehicle
-             * The vehicle class shall have three string properties Year, Make, and Model
-             * Set the defaults to something generic in the Vehicle class
-             * Vehicle shall have an abstract method called DriveAbstract with no implementation
-             * Vehicle shall have a virtual method called DriveVirtual with a base implementation.
-             */
+            Car car = new Car();
+            vehicles.Add(car);  
+            
+            Motorcycle motorcycle = new Motorcycle();
+            vehicles.Add(motorcycle);
 
-            /* 
-             * Now create 2 non-abstract classes: Car and Motorcycle, that inherit from Vehicle
-             * Add a distict property in the 2 derived classes such as HasTrunk for Car and HasSideCart for Motorcycle
-             * Provide the implementations for the abstract methods
-             * Only in the Motorcycle class will you override the virtual drive method
-            */
+            Vehicle vehicleOne = new Car();
+            vehicles.Add(vehicleOne);
 
-            // Create a list of Vehicle called vehicles
+            Vehicle vehicleTwo = new Motorcycle();
+            vehicles.Add(vehicleTwo);
+            
+            foreach (Vehicle vehicle in vehicles) 
+            {
+                Console.WriteLine(vehicle.Make);
+                Console.WriteLine(vehicle.Model);
+                Console.WriteLine(vehicle.Year);
 
-            /*
-             * Create 4 instances: 1 Car, 1 Motorcycle, and then 2 instances of type Vehicle (use explicit typing) but use constuctors from derived classes
-             * - new it up as one of each derived class
-             * Set the properties with object initializer syntax
-             */
+                Console.WriteLine();
 
-            /*
-             * Add the 4 vehicles to the list
-             * Using a foreach loop iterate over each of the properties
-             */
+                vehicle.DriveVirtual();
+                vehicle.DriveAbstract();
 
-            // Call each of the drive methods for one car and one motorcycle
+                Console.WriteLine();
+            }   
 
-            #endregion            
-            Console.ReadLine();
         }
     }
 }
+
